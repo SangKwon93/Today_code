@@ -13,8 +13,8 @@ import pymongo
 class LuckyDrawAirPipeline:
     def process_item(self, item, spider):
     
-        client = pymongo.MongoClient('mongodb://localhost:27017/')
-        db = client.resell
+        client = pymongo.MongoClient('mongodb://skpark:sk138029@localhost:27017/')
+        db = client.project
         
         #"title": item["article_title"]
         data = {"pro_code": item["code"],

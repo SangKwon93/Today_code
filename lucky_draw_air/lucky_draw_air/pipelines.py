@@ -6,27 +6,29 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
-from matplotlib import collections
 import pymongo
 
 
-class LuckyDrawAirPipeline:
-    def process_item(self, item, spider):
+
+class LuckydrawPipeline:
+  def process_item(self, item, spider):
+      user = 'psk'
+      pw = '1234'
+      host = 'ec2-3-39-24-39.ap-northeast-2.compute.amazonaws.com'
+      client = pymongo.MongoClient(f'mongodb://{user}:{pw}@{host}:27017/admin')
+      db = client.resell
+      
+     
+      data = {"pro_code": item["code"],
+              "Model_fullname": item["_id"],
+                "Release_date": item["release_date"],
+                "Release_Price": item["price"], 
+                "img_url_1": item["img_url_1"],
+                "img_url_2": item["img_url_2"],
+                "img_url_3": item["img_url_3"],
+                "img_url_4": item["img_url_4"]                   
+              }
     
-        client = pymongo.MongoClient('mongodb://skpark:sk138029@localhost:27017/')
-        db = client.project
-        
-        #"title": item["article_title"]
-        data = {"pro_code": item["code"],
-                "_id": item["_id"],
-                 "Release_date": item["release_date"],
-                 "Release_Price": item["price"], 
-                 "img_url_1": item["img_url_1"],
-                 "img_url_2": item["img_url_2"],
-                 "img_url_3": item["img_url_3"],
-                 "img_url_4": item["img_url_4"]                
-               }
-    
-        # "img": item["img"],
-        db.draw.insert_one(data)
-        return item
+      db.draw.insert_one(data)
+
+      return item

@@ -16,7 +16,7 @@ from lucky_draw_air.items import LuckyDrawAirItem
 headers = {"User-Agent" : UserAgent().chrome }
 
 class Spider(scrapy.Spider):
-    name="luckydraw"
+    name="lucky_draw_air"
     allow_dimain=["https://www.luck-d.com/"]
     start_urls = ["https://www.luck-d.com/"]
     # pip install scrapy-fake-useragent 패키지 미들웨어를 사용한다.
@@ -71,6 +71,5 @@ class Spider(scrapy.Spider):
                     item['img_url_2']=response.xpath('//*[@id="product-carousel"]/div/div[2]/img/@src').extract_first()
                     item['img_url_3']=response.xpath('//*[@id="product-carousel"]/div/div[3]/img/@src').extract_first()
                     item['img_url_4']=response.xpath('//*[@id="product-carousel"]/div/div[4]/img/@src').extract_first()
-                    
                     yield item
  
